@@ -6,7 +6,6 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-
 var mysql = require('mysql');
 var connection = mysql.createConnection({
   host: 'localhost',
@@ -32,16 +31,9 @@ app.get('/', function (req, res) {
   });
 });
 
-
-
-
 var port = process.env.PORT || 3005; // port番号を指定
 
-
-// GET http://localhost:3005/api/v1/
-
 app.use('/api/v1', require('./routes/v1/'));
-
 
 //サーバ起動
 app.listen(port);
