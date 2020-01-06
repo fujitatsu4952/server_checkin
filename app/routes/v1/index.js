@@ -31,6 +31,5 @@ router.post('/', (req, res) => {
 
 });
 
-
 //routerをモジュールとして扱う準備
 module.exports = router;
