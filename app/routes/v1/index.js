@@ -53,7 +53,7 @@ router.post('/update', (req, res) => {
   connection.query(`
   UPDATE hotel_mast
   SET hotel_name = ${SqlString.escape(req.body.hotel_name)}, hotel_pass = ${SqlString.escape(req.body.hotel_pass)}
-  WHERE hotel_id = "${req.body.hotel_id}"
+  WHERE hotel_id = '${req.body.hotel_id}'
   ;`,
   function (error, results, fields) {
     if (error) throw error;
@@ -73,14 +73,14 @@ router.post('/insert', (req, res) => {
 
 //チェックインフォーム入力を受けとるAPI
 router.post('/checkin', (req, res) => {
-  console.log(req.body)
+  console.log(req.body.name)
   connection.query(`
   UPDATE guest_mast 
-  SET country = "${req.body.country}", name = ${SqlString.escape(req.body.name)}, age = "${req.body.age}", address = ${SqlString.escape(req.body.address)}, work = "${req.body.work}",work_type = "${req.body.work_type}", 
-  tell_number = ${SqlString.escape(req.body.tell)}, sex = "${req.body.selected}" ,checkingtime = "${req.body.checkingtime}", status = "済"
-  WHERE reservation_id = "${req.body.reserve}" 
+  SET country = '${req.body.country}', name = ${SqlString.escape(req.body.name)}, age = '${req.body.age}', address = ${SqlString.escape(req.body.address)}, work = '${req.body.work}',work_type = '${req.body.work_type}', 
+  tell_number = ${SqlString.escape(req.body.tell)}, sex = '${req.body.sex}',checkingtime = '${req.body.checkingtime}', status = "済"
+  WHERE reservation_id = '${req.body.reserve}' 
         AND 
-        hotel_id = "${req.body.hotel}";`, 
+        hotel_id = '${req.body.hotel}';`, 
   function (error, results, fields) {
     if (error) throw error;
   });
