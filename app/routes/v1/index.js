@@ -1,7 +1,8 @@
 var express = require('express');
-// ルーティングするで
+// ルーティングする
 var router = express.Router();
 const connection = require('../../app').connection
+// エスケープ処理
 var SqlString = require('sqlstring');
 function getEscapeString(input){
   return SqlString.escape(`%${input}%`);
@@ -18,7 +19,7 @@ router.get('/', function (req, res) {
   });
 });
 
-
+//予約者情報を取得する
 router.post('/', (req, res) => {
   console.log(getEscapeString(req.body.checkin_name_or_id));
   console.log(req.body.checkin_name_or_id);
@@ -48,7 +49,7 @@ router.get('/hotel', function (req, res) {
   });
 });
 
-// ホテル情報の変更を受け取るAPI
+// ホテル情報の変更を受け取る
 router.post('/update', (req, res) => {
   connection.query(`
   UPDATE hotel_mast
@@ -59,7 +60,8 @@ router.post('/update', (req, res) => {
     if (error) throw error;
   });
 });
-// 新規のホテル情報を受け取るAPI
+
+// 新規のホテル情報を受け取る
 router.post('/insert', (req, res) => {
   connection.query(`
   insert into hotel_mast (hotel_name, hotel_id, hotel_pass)
@@ -69,7 +71,6 @@ router.post('/insert', (req, res) => {
     if (error) throw error;
   });
 });
-
 
 //チェックインフォーム入力を受けとるAPI
 router.post('/checkin', (req, res) => {
@@ -85,7 +86,6 @@ router.post('/checkin', (req, res) => {
     if (error) throw error;
   });
 });
-
 
 //routerをモジュールとして扱う準備
 module.exports = router;
