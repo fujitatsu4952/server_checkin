@@ -1,6 +1,10 @@
 var express    = require('express');
 var app        = express();
 var bodyParser = require('body-parser');
+var config = require('../config.json')[app.get('env')];
+
+//表示
+console.log(config.hoge);
 
 //body-parserの設定
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -8,10 +12,10 @@ app.use(bodyParser.json());
 
 var mysql = require('mysql');
 var connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'check',
+  host: config.DB_HOST,
+  user: config.DB_USER,
+  password: config.DB_PASSWORD,
+  database: config.DB_DATABASE,
 });
 
 module.exports = {
@@ -38,3 +42,4 @@ app.use('/api/v1', require('./routes/v1/'));
 //サーバ起動
 app.listen(port);
 console.log('listen on port ' + port);
+console.log(app.get('env'));

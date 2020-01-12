@@ -1,0 +1,10 @@
+{
+  "development": {
+      "host": "http://localhost:3005/",
+      "DB_HOST": "localhost",
+      "DB_DATABASE": "check",
+      "DB_USER": "root",
+      "DB_PASSWORD": "",
+      "hoge": 43
+  }
+}
