@@ -38,6 +38,21 @@ router.post('/', (req, res) => {
     });
 });
 
+// スタッフ担当者の入力を受け取る
+router.post('/staffname', function (req, res) {
+  console.log('hello');
+  connection.query(`
+  UPDATE guest_mast
+  SET staff_name = '${req.body.staff_name}'
+  WHERE reservation_id = '${req.body.reserve}' 
+        AND 
+        hotel_id = '${req.body.hotel}'
+  ;`, function (error, results, fields) {
+    if (error) throw error;
+    console.log(results);
+    res.json(results);
+  });
+});
 
 // ホテル情報を手に入れる
 router.get('/hotel', function (req, res) {
