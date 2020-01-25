@@ -4,19 +4,20 @@ var router = express.Router();
 const connection = require('../../app').connection
 // エスケープ処理
 var SqlString = require('sqlstring');
-function getEscapeString(input){
+
+function getEscapeString(input) {
   return SqlString.escape(`%${input}%`);
 };
 
 // routerにルーティングの動作を書いてく
 router.get('/', function (req, res) {
   console.log('hello');
-  connection.query('select * from hotel_mast ', 
-  function (error, results, fields) {
-    if (error) throw error;
-    console.log(results);
-    res.json(results);
-  });
+  connection.query('select * from hotel_mast ',
+    function (error, results, fields) {
+      if (error) throw error;
+      console.log(results);
+      res.json(results);
+    });
 });
 
 //予約者情報を取得する
@@ -71,9 +72,9 @@ router.post('/update', (req, res) => {
   SET hotel_name = ${SqlString.escape(req.body.hotel_name)}, hotel_pass = ${SqlString.escape(req.body.hotel_pass)}
   WHERE hotel_id = '${req.body.hotel_id}'
   ;`,
-  function (error, results, fields) {
-    if (error) throw error;
-  });
+    function (error, results, fields) {
+      if (error) throw error;
+    });
 });
 
 // 新規のホテル情報を受け取る
@@ -81,10 +82,10 @@ router.post('/insert', (req, res) => {
   connection.query(`
   insert into hotel_mast (hotel_name, hotel_id, hotel_pass)
   VALUES (${SqlString.escape(req.body.new_hotel_name)}, ${SqlString.escape(req.body.new_hotel_id)}, ${SqlString.escape(req.body.new_hotel_pass)})
-  ;`, 
-  function (error, results, fields) {
-    if (error) throw error;
-  });
+  ;`,
+    function (error, results, fields) {
+      if (error) throw error;
+    });
 });
 
 //チェックインフォーム入力を受けとるAPI
@@ -96,10 +97,10 @@ router.post('/checkin', (req, res) => {
   tell_number = ${SqlString.escape(req.body.tell)}, sex = '${req.body.sex}',checkingtime = '${req.body.checkingtime}', status = "済"
   WHERE reservation_id = '${req.body.reserve}' 
         AND 
-        hotel_id = '${req.body.hotel}';`, 
-  function (error, results, fields) {
-    if (error) throw error;
-  });
+        hotel_id = '${req.body.hotel}';`,
+    function (error, results, fields) {
+      if (error) throw error;
+    });
 });
 
 //routerをモジュールとして扱う準備

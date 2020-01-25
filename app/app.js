@@ -1,5 +1,5 @@
-var express    = require('express');
-var app        = express();
+var express = require('express');
+var app = express();
 var bodyParser = require('body-parser');
 var config = require('../config.json')[app.get('env')];
 
@@ -7,7 +7,9 @@ var config = require('../config.json')[app.get('env')];
 console.log(config.hoge);
 
 //body-parserの設定
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(bodyParser.json());
 
 var mysql = require('mysql');
